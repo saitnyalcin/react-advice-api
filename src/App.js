@@ -1,23 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import logo from '../src/images/advice.png';
 
 function App() {
+  const [data, setData] = useState([]);
+
+  async function fetchData() {
+    const result = await fetch('https://api.adviceslip.com/advice');
+
+    result.json().then(result => setData(result));
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        {Object.keys(data)
+          .slice(0, 1)
+          .map(item => (
+            <p>{data.slip.advice}</p>
+          ))}
       </header>
     </div>
   );
