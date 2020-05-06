@@ -20,11 +20,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        {Object.keys(data)
-          .slice(0, 1)
-          .map(item => (
-            <p>{data.slip.advice}</p>
-          ))}
+        {Object.keys(data).map(() => (
+          <div key={data.slip.id}>{data.slip.advice}</div>
+        ))}
       </header>
     </div>
   );
