@@ -7,7 +7,6 @@ function App() {
 
   async function fetchData() {
     const result = await fetch('https://api.adviceslip.com/advice');
-
     result.json().then(result => setData(result));
   }
 
@@ -20,12 +19,13 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        {Object.keys(data).map(() => (
-          <div key={data.slip.id}>{data.slip.advice}</div>
-        ))}
+        <div className="advice-div">
+          {Object.keys(data).map(() => (
+            <div key={data.slip.id}>{data.slip.advice}</div>
+          ))}
+        </div>
       </header>
     </div>
   );
 }
-
 export default App;
