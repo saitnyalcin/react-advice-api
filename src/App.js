@@ -1,31 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import axios from 'axios';
+
 import './App.css';
-import logo from '../src/images/advice.png';
 
-function App() {
-  const [data, setData] = useState([]);
+class App extends React.Component {
+  state = {
+    advice: ''
+  };
 
-  async function fetchData() {
-    const result = await fetch('https://api.adviceslip.com/advice');
-    result.json().then(result => setData(result));
+  componentDidMount() {
+    this.fetchAdvice();
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  fetchAdvice = () => {
+    axios
+      .get('https://api.adviceslip.com/advice')
+      .then(response => {
+        const { advice } = response.data.slip;
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        this.setState({ advice });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-        <div className="advice-div">
-          {Object.keys(data).map(() => (
-            <div key={data.slip.id}>{data.slip.advice}</div>
-          ))}
+  render() {
+    return (
+      <div className="app">
+        <div className="card">
+          <h1 className="heading">{this.state.advice}</h1>
+          <button className="button" onClick={this.fetchAdvice}>
+            <span>GIVE ME ADVICE!</span>
+          </button>
         </div>
-      </header>
-    </div>
-  );
+      </div>
+    );
+  }
 }
+
 export default App;
