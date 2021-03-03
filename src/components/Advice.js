@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const Advice = () => {
   // set the state of the data variable
@@ -6,8 +6,8 @@ const Advice = () => {
 
   // set the async function to retrieve the data from the api end point
   async function fetchData() {
-    const result = await fetch('https://api.adviceslip.com/advice');
-    result.json().then(result => setData(result));
+    const result = await fetch("https://api.adviceslip.com/advice");
+    result.json().then((result) => setData(result));
   }
 
   useEffect(() => {
